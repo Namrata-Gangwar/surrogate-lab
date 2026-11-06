@@ -1,0 +1,9 @@
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Activity, Box, Gauge, Layers3, Settings2, Sparkles } from "lucide-react";
+const links = [{ href: "/", label: "Workbench", icon: Box }, { href: "/arena", label: "Model arena", icon: Layers3 }, { href: "/cad", label: "CAD viewer", icon: Box }, { href: "/optimize", label: "Optimizer", icon: Gauge }];
+export default function Shell({ children }: { children: React.ReactNode }) {
+ const path = usePathname();
+ return <div className="app-shell"><aside className="sidebar"><Link className="brand" href="/"><span className="brand-icon"><Activity size={19}/></span><span>surrogate<span className="brand-light">lab</span><small>ENGINEERING STUDIO</small></span></Link><div className="workspace"><span className="status-dot"/> DESIGN WORKSPACE <Settings2 size={14}/></div><nav>{links.map(({href,label,icon:Icon})=><Link key={href} href={href} className={`nav-link ${path===href?"active":""}`}><Icon size={17}/>{label}{label==="Workbench"&&<span className="nav-pill">LIVE</span>}</Link>)}</nav><div className="sidebar-bottom"><div className="copilot-badge"><Sparkles size={15}/><div><b>Design copilot</b><span>AI assisted exploration</span></div><span className="online-dot"/></div><div className="user-row"><div className="avatar">SL</div><div><b>Surrogate Lab</b><span>Local workspace</span></div><span className="ellipsis">···</span></div></div></aside><main className="main-area"><header className="topbar"><div className="crumb">WORKSPACE <span>/</span> <b>{links.find(x=>x.href===path)?.label.toUpperCase()||"WORKBENCH"}</b></div><div className="top-actions"><span className="save-status"><i/> All changes saved</span><button className="icon-button" aria-label="Settings"><Settings2 size={17}/></button><div className="avatar small-avatar">N</div></div></header>{children}</main></div>;
+}

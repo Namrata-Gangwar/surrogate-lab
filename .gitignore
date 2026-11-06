@@ -1,0 +1,11 @@
+node_modules/
+.next/
+.env*
+!.env.example
+out/
+dist/
+coverage/
+ml/data.csv
+ml/*.pt
+public/model.onnx
+*.log
